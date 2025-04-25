@@ -25,8 +25,12 @@ class Queue:
     def size(self):
         return self.size
     
+    def front(self):
+        if not self.buffer.is_empty():
+            return self.buffer[-1]
+        return None
     
-'''
+    
 ## Example usage
 pq = Queue()
 
@@ -50,7 +54,7 @@ print(pq.size)
 print(pq.dequeue())
 print(pq.dequeue())
 
-'''
+
 ####################EXERCISE 1######################
 import threading
 import time
@@ -97,3 +101,25 @@ if __name__ == "__main__":
     place_order_thread.join()
     serve_order_thread.join()
     print("All orders have been placed and served.")
+
+####################EXERCISE 2######################
+'''Write a program to print binary numbers from 1 to 10 using Queue.'''
+
+def binary_numbers(n):
+    binary_numbers_asc = []
+    queue = Queue()
+    queue.enqueue('1')
+    for _ in range(1, n+1):
+        s1 = queue.dequeue()
+        queue.enqueue(s1 + '0')
+        queue.enqueue(s1 + '1')
+        binary_numbers_asc.append(int(s1))
+    return binary_numbers_asc
+
+if __name__ == "__main__":
+    n = 10
+    print(f"Binary numbers from 1 to {n}:")
+    print("Decimal\tBinary")
+    for n, b  in enumerate(binary_numbers(n),1):
+        print(f"{n}\t{b}")
+    print("All binary numbers have been printed.")
